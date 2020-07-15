@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import {requester} from "easier-requests";
 
 function App() {
   return (
