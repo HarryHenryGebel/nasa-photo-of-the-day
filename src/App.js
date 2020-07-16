@@ -4,8 +4,10 @@ import {requester} from "easier-requests";
 import Header from "./Header";
 import {addDays} from "./helpers";
 
-function getAPOD (setApodData, date = undefined) {
-  async function _getAPOD (setApodData, data) {
+function getAPOD (setApodData,
+                  date = undefined,
+                  setDisplayDate = undefined) {
+  async function _getAPOD (setApodData, data, setDisplayDate) {
     const baseURL = 'https://api.nasa.gov/planetary/apod?',
           additional = ['api_key=SrKOhrnWciCIqOHkKCsbQNBEXvjI51TD7a18iRjX',
                         'hd=True'];
@@ -32,16 +34,22 @@ function getAPOD (setApodData, date = undefined) {
         response.hdurl = response.url;
 
       setApodData(response);
+      if (setDisplayDate)
+        setDisplayDate(date);
+      console.log(date);
     }
   }
 
-  _getAPOD(setApodData, date);
+  _getAPOD(setApodData, date, setDisplayDate);
 }
 
 function App() {
-  const [apodData, setApodData] = useState();
+  const [apodData, setApodData] = useState(),
+        [displayDate, setDisplayDate] = useState(new Date());
 
-  useEffect(() => getAPOD(setApodData), []);
+  useEffect(() => getAPOD(setApodData,
+                          displayDate,
+                          setDisplayDate), [displayDate]);
 
   return (
     <div className="App">
