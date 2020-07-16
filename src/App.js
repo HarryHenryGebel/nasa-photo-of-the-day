@@ -33,11 +33,15 @@ function getAPOD (setApodData) {
     await requester.get(baseURL + additional.join('&'), id);
     const response = requester.response(id).data;
 
+    // if not an image, keep going back until we find an image
     if (response.media_type === 'video') {
       getAPOD(setApodData, addDays(date, -1));
     }
     else {
-      console.log(response);
+      // if there is no HD image, use normal as HD
+      if (!('hdurl' in response))
+        response.hdurl = response.url;
+
       setApodData(response);
     }
   }
