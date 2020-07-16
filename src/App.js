@@ -56,8 +56,25 @@ function App() {
         Read through the instructions in the README.md file to build your NASA
         app! Have fun <span role="img" aria-label='go!'>🚀</span>!
       </p>
+
+function APODHolder(props) {
+  const {apodData} = props;
+  if (!apodData)
+    return (
+      <h2>Retrieving data</h2>
+    );
+
+  const {title, explanation, url, copyright} = apodData;
+  return (
+    <div>
+      <h2>{title}</h2>
+      <img alt={title} src={url}/>
+      <p>{explanation}</p>
+      <p>Copyright: {copyright}</p>
     </div>
   );
 }
 
 export default App;
+
+//  LocalWords:  hdurl
