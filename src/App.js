@@ -26,7 +26,7 @@ function getAPOD (setApodData,
 
     // if not an image, keep going back until we find an image
     if (response.media_type === 'video') {
-      getAPOD(setApodData, addDays(date, -1));
+      _getAPOD(setApodData, addDays(date, -1));
     }
     else {
       // if there is no HD image, use normal as HD
@@ -36,7 +36,6 @@ function getAPOD (setApodData,
       setApodData(response);
       if (setDisplayDate)
         setDisplayDate(date);
-      console.log(date);
     }
   }
 
@@ -53,7 +52,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
+      <Header displayDate={displayDate} setDisplayDate={setDisplayDate}/>
       <APODHolder apodData = {apodData}/>
     </div>
   );
