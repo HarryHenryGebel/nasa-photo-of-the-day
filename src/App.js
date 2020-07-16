@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
 import {requester} from "easier-requests";
 
@@ -50,12 +50,16 @@ function getAPOD (setApodData) {
 }
 
 function App() {
+  const [apodData, setApodData] = useState();
+
+  useEffect(() => getAPOD(setApodData), []);
+
   return (
     <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun <span role="img" aria-label='go!'>🚀</span>!
-      </p>
+      <APODHolder apodData = {apodData}/>
+    </div>
+  );
+}
 
 function APODHolder(props) {
   const {apodData} = props;
