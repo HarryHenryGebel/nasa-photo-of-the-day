@@ -32,7 +32,7 @@ async function getAPOD (setApodData, date = undefined) {
   await requester.get(baseURL + additional.join('&'), id);
   const response = requester.response(id).data;
   if (response.media_type === 'video') {
-    await getAPOD(setApodData, addDays(date, -1));
+    getAPOD(setApodData, addDays(date, -1));
   }
   else {
     console.log(response);
