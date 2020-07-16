@@ -15,29 +15,34 @@ function addDays(date, days) {
   return newDate;
 }
 
-async function getAPOD (setApodData, date = undefined) {
-  const baseURL = 'https://api.nasa.gov/planetary/apod?',
-        additional = ['api_key=SrKOhrnWciCIqOHkKCsbQNBEXvjI51TD7a18iRjX',
-                      'hd=True'];
-  // If no date provided, default to today
-  if (!date)
-    date = new Date();
+function getAPOD (setApodData) {
+  async function _getAPOD (setApodData, date = undefined) {
+    const baseURL = 'https://api.nasa.gov/planetary/apod?',
+          additional = ['api_key=SrKOhrnWciCIqOHkKCsbQNBEXvjI51TD7a18iRjX',
+                        'hd=True'];
+    // If no date provided, default to today
+    if (!date)
+      date = new Date();
 
-  // add date to GET
-  additional.push(
-    `date=${date.getFullYear()}-${date.getMonth() + 1}-` +
-      `${date.getDate()}`);
+    // add date to GET
+    additional.push(
+      `date=${date.getFullYear()}-${date.getMonth() + 1}-` +
+        `${date.getDate()}`);
 
-  const id = requester.createUniqueID();
-  await requester.get(baseURL + additional.join('&'), id);
-  const response = requester.response(id).data;
-  if (response.media_type === 'video') {
-    getAPOD(setApodData, addDays(date, -1));
+    const id = requester.createUniqueID();
+    await requester.get(baseURL + additional.join('&'), id);
+    const response = requester.response(id).data;
+
+    if (response.media_type === 'video') {
+      getAPOD(setApodData, addDays(date, -1));
+    }
+    else {
+      console.log(response);
+      setApodData(response);
+    }
   }
-  else {
-    console.log(response);
-    setApodData(response);
-  }
+
+  _getAPOD(setApodData);
 }
 
 function App() {
