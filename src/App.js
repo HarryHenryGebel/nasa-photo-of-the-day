@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "./App.css";
 import {requester} from "easier-requests";
+import Header from "./Header";
 
 function addDays(date, days) {
   // 1000 milliseconds in a second, 60 seconds in a minute, 60 minutes
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
       <APODHolder apodData = {apodData}/>
     </div>
   );
