@@ -4,8 +4,8 @@ import {requester} from "easier-requests";
 import Header from "./Header";
 import {addDays} from "./helpers";
 
-function getAPOD (setApodData) {
-  async function _getAPOD (setApodData, date = undefined) {
+function getAPOD (setApodData, date = undefined) {
+  async function _getAPOD (setApodData, data) {
     const baseURL = 'https://api.nasa.gov/planetary/apod?',
           additional = ['api_key=SrKOhrnWciCIqOHkKCsbQNBEXvjI51TD7a18iRjX',
                         'hd=True'];
@@ -35,7 +35,7 @@ function getAPOD (setApodData) {
     }
   }
 
-  _getAPOD(setApodData);
+  _getAPOD(setApodData, date);
 }
 
 function App() {
