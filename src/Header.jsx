@@ -9,7 +9,8 @@ export default function Header(props) {
     <header>
       <h2>NASA Astronomy Photo of the Day</h2>
       <DayPicker onDayClick={(selectedDay) => setDisplayDate(selectedDay)}
-                 selectedDays={displayDate}/>
+                 selectedDays={displayDate}
+                 disabledDays={{after: new Date()}}/>
     </header>
   );
 }
