@@ -21,7 +21,7 @@ function getAPOD (setApodData, date, setDisplayDate) {
 
     // if not an image, keep going back until we find an image
     if (response.media_type === 'video')
-      setDisplayDate(setApodData, addDays(date, -1));
+      setDisplayDate(addDays(date, -1));
     else {
       // if there is no HD image, use normal as HD
       if (!('hdurl' in response))
