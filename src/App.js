@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "./App.css";
-import {requester} from "easier-requests";
+import requester from "easier-requests";
 import Header from "./Header";
 import {addDays} from "./helpers";
 
@@ -9,14 +9,15 @@ function getAPOD (setApodData, date, setDisplayDate) {
   // from React to only pass in a synchronous function.
   async function _getAPOD (setApodData, data, setDisplayDate) {
     console.log(date);
-    const baseURL = 'https://api.nasa.gov/planetary/apod?',
-          additional = ['api_key=SrKOhrnWciCIqOHkKCsbQNBEXvjI51TD7a18iRjX',
-                        'hd=True',
-                        `date=${date.getFullYear()}-${date.getMonth() + 1}-`
-                        + `${date.getDate()}`];
+    const url = 'https://api.nasa.gov/planetary/apod';
 
+    requester.setOptions({throwOnFailure: true});
     const id = requester.createUniqueID();
-    await requester.get(baseURL + additional.join('&'), id);
+    await requester.get(url, id,
+                        'api_key', 'SrKOhrnWciCIqOHkKCsbQNBEXvjI51TD7a18iRjX',
+                        'hd', 'True',
+                        'date', `${date.getFullYear()}-${date.getMonth() + 1}-`
+                        + `${date.getDate()}`);
     const response = requester.response(id).data;
 
     // if not an image, keep going back until we find an image
@@ -70,4 +71,4 @@ function APODHolder(props) {
 
 export default App;
 
-//  LocalWords:  hdurl useEffect
+//  LocalWords:  hdurl useEffect hd
